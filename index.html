@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALX | شريك التميز المدرسي</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                    },
+                    colors: {
+                        border: "hsl(var(--border))",
+                        input: "hsl(var(--input))",
+                        ring: "hsl(var(--ring))",
+                        background: "hsl(var(--background))",
+                        foreground: "hsl(var(--foreground))",
+                        primary: {
+                            DEFAULT: "hsl(var(--primary))",
+                            foreground: "hsl(var(--primary-foreground))",
+                        },
+                        secondary: {
+                            DEFAULT: "hsl(var(--secondary))",
+                            foreground: "hsl(var(--secondary-foreground))",
+                        },
+                        destructive: {
+                            DEFAULT: "hsl(var(--destructive))",
+                            foreground: "hsl(var(--destructive-foreground))",
+                        },
+                        muted: {
+                            DEFAULT: "hsl(var(--muted))",
+                            foreground: "hsl(var(--muted-foreground))",
+                        },
+                        accent: {
+                            DEFAULT: "hsl(var(--accent))",
+                            foreground: "hsl(var(--accent-foreground))",
+                        },
+                        popover: {
+                            DEFAULT: "hsl(var(--popover))",
+                            foreground: "hsl(var(--popover-foreground))",
+                        },
+                        card: {
+                            DEFAULT: "hsl(var(--card))",
+                            foreground: "hsl(var(--card-foreground))",
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Custom Utilities matching React components */
+        @layer base {
+            :root {
+                --background: 0 0% 100%;
+                --foreground: 222.2 84% 4.9%;
+                --card: 0 0% 100%;
+                --card-foreground: 222.2 84% 4.9%;
+                --popover: 0 0% 100%;
+                --popover-foreground: 222.2 84% 4.9%;
+                --primary: 222.2 47.4% 11.2%;
+                --primary-foreground: 210 40% 98%;
+                --secondary: 210 40% 96.1%;
+                --secondary-foreground: 222.2 47.4% 11.2%;
+                --muted: 210 40% 96.1%;
+                --muted-foreground: 215.4 16.3% 46.9%;
+                --accent: 210 40% 96.1%;
+                --accent-foreground: 222.2 47.4% 11.2%;
+                --destructive: 0 84.2% 60.2%;
+                --destructive-foreground: 210 40% 98%;
+                --border: 214.3 31.8% 91.4%;
+                --input: 214.3 31.8% 91.4%;
+                --ring: 222.2 84% 4.9%;
+                --radius: 0.5rem;
+            }
+
+            .dark {
+                --background: 222.2 84% 4.9%;
+                --foreground: 210 40% 98%;
+                --card: 222.2 84% 4.9%;
+                --card-foreground: 210 40% 98%;
+                --popover: 222.2 84% 4.9%;
+                --popover-foreground: 210 40% 98%;
+                --primary: 210 40% 98%;
+                --primary-foreground: 222.2 47.4% 11.2%;
+                --secondary: 217.2 32.6% 17.5%;
+                --secondary-foreground: 210 40% 98%;
+                --muted: 217.2 32.6% 17.5%;
+                --muted-foreground: 215 20.2% 65.1%;
+                --accent: 217.2 32.6% 17.5%;
+                --accent-foreground: 210 40% 98%;
+                --destructive: 0 62.8% 30.6%;
+                --destructive-foreground: 210 40% 98%;
+                --border: 217.2 32.6% 17.5%;
+                --input: 217.2 32.6% 17.5%;
+                --ring: 212.7 26.8% 83.9%;
+            }
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            /* Ensure smooth scrolling globally */
+            scroll-behavior: smooth;
+        }
+
+        /* Fade Up Animation */
+        .animate-fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .animate-fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Nav Transition */
+        #navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark #navbar.scrolled {
+            background-color: rgba(2, 6, 23, 0.95);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-background text-foreground overflow-x-hidden">
+
+    <!-- Navbar -->
+    <!-- Note: dir="rtl" triggers default right-to-left. 
+         To put Logo on LEFT and Nav on RIGHT, we need to reverse the flex direction 
+         or just manually order them. Using flex-row-reverse is a clean way in RTL. -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-transparent">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between flex-row-reverse">
+
+                <!-- Logo (Left Side) -->
+                <div class="flex items-center gap-2">
+                    <img src="images/calx-logo-black2.png" alt="CALX Logo"
+                        class="h-12 w-auto dark:invert hover:scale-105 transition-transform duration-300">
+                </div>
+
+                <!-- Desktop Nav (Right Side) -->
+                <div class="hidden md:flex items-center gap-8 flex-row-reverse">
+                    <button onclick="scrollToSection('services')"
+                        class="bg-gradient-to-r from-emerald-600 to-teal-500 text-white hover:shadow-lg hover:shadow-emerald-500/30 h-10 px-6 rounded-full text-sm font-bold transition-all transform hover:-translate-y-0.5">
+                        تواصل معنا
+                    </button>
+                    <button onclick="scrollToSection('services')"
+                        class="text-base font-semibold text-slate-700 dark:text-slate-200 hover:text-emerald-600 transition-colors relative group">
+                        خدماتنا
+                        <span
+                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-600 transition-all group-hover:w-full"></span>
+                    </button>
+                    <button onclick="scrollToSection('challenges')"
+                        class="text-base font-semibold text-slate-700 dark:text-slate-200 hover:text-emerald-600 transition-colors relative group">
+                        التحديات
+                        <span
+                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-600 transition-all group-hover:w-full"></span>
+                    </button>
+                    <button onclick="scrollToSection('about')"
+                        class="text-base font-semibold text-slate-700 dark:text-slate-200 hover:text-emerald-600 transition-colors relative group">
+                        عن التقويم
+                        <span
+                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-600 transition-all group-hover:w-full"></span>
+                    </button>
+                    <button onclick="scrollToSection('hero')"
+                        class="text-base font-semibold text-emerald-600 transition-colors">
+                        الرئيسية
+                    </button>
+                    <a href="index-en.html"
+                        class="flex items-center gap-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-emerald-600 font-sans border-r border-slate-300 pr-4">
+                        <i data-lucide="globe" class="w-4 h-4"></i> English
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="menu-btn"
+                    class="md:hidden p-2 text-slate-800 dark:text-white hover:bg-slate-100 rounded-full transition-colors">
+                    <i data-lucide="menu" class="h-6 w-6"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Dropdown -->
+            <div id="mobile-menu"
+                class="hidden md:hidden mt-4 pb-4 space-y-4 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md rounded-xl p-4 shadow-2xl border border-slate-100 dark:border-slate-800 absolute w-full left-0 top-16 z-50">
+                <button onclick="scrollToSection('hero')"
+                    class="block w-full text-right px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-50 hover:text-emerald-600 transition-colors">الرئيسية</button>
+                <button onclick="scrollToSection('about')"
+                    class="block w-full text-right px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-50 hover:text-emerald-600 transition-colors">عن
+                    التقويم</button>
+                <button onclick="scrollToSection('challenges')"
+                    class="block w-full text-right px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-50 hover:text-emerald-600 transition-colors">التحديات</button>
+                <button onclick="scrollToSection('services')"
+                    class="block w-full text-right px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-50 hover:text-emerald-600 transition-colors">خدماتنا</button>
+                <button onclick="scrollToSection('services')"
+                    class="w-full bg-emerald-600 text-white h-10 px-4 py-2 rounded-lg text-sm font-bold shadow-md">
+                    تواصل معنا
+                </button>
+                <a href="index-en.html"
+                    class="block w-full text-right px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-50 hover:text-emerald-600 transition-colors flex items-center gap-2 justify-end font-sans">
+                    English <i data-lucide="globe" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Dynamic Animated Background -->
+        <div class="absolute inset-0 bg-slate-950">
+            <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-emerald-950/40 to-slate-900 opacity-80">
+            </div>
+            <!-- Animated Gradient Orbs -->
+            <div
+                class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-emerald-500/10 rounded-full blur-[100px] animate-pulse">
+            </div>
+            <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-teal-500/10 rounded-full blur-[100px] animate-pulse"
+                style="animation-delay: 2s;"></div>
+            <div
+                class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150">
+            </div>
+        </div>
+
+        <div class="container relative z-10 mx-auto px-4 py-32 text-center">
+            <div class="max-w-5xl mx-auto space-y-10 animate-fade-up">
+
+                <!-- Badge -->
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm text-emerald-300 text-sm font-medium mb-4">
+                    <span class="relative flex h-3 w-3">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                    </span>
+                    شريك التميز المدرسي الأول في المملكة
+                </div>
+
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] tracking-tight">
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-400">حَوِّل</span>
+                    مدرستك إلى <br>
+                    <span class="text-white">منارة تعليمية معتمدة</span>
+                </h1>
+
+                <p class="text-xl md:text-2xl text-slate-300 leading-relaxed max-w-3xl mx-auto font-light">
+                    انضم إلى نخبة المدارس المعتمدة من <strong class="text-white">ETEC</strong> - نحن لا نساعدك فقط في
+                    اجتياز التقييم، بل نبني معك <span class="text-emerald-300 border-b border-emerald-500/30 pb-1">ثقافة
+                        التميز المستدامة</span> التي تضمن نجاحك على المدى الطويل.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-5 justify-center pt-8">
+                    <button onclick="scrollToSection('services')"
+                        class="group relative h-14 rounded-full px-10 text-lg bg-emerald-600 text-white overflow-hidden shadow-2xl shadow-emerald-900/50 font-bold transition-all hover:scale-105 active:scale-95">
+                        <div
+                            class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                        </div>
+                        <span class="relative z-10 flex items-center gap-2">
+                            ابدأ رحلة التميز الآن <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                        </span>
+                    </button>
+                    <button onclick="scrollToSection('challenges')"
+                        class="h-14 rounded-full px-10 text-lg border border-white/20 bg-white/5 text-white hover:bg-white/10 backdrop-blur-sm font-bold transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2">
+                        تعرف على التحديات <i data-lucide="alert-circle" class="w-5 h-5 opacity-70"></i>
+                    </button>
+                </div>
+
+                <!-- Stats / Trust Indicators -->
+                <div class="pt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                    <div
+                        class="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm flex flex-col items-center gap-2 group hover:bg-white/10 transition-colors">
+                        <div
+                            class="p-3 bg-emerald-500/20 rounded-xl group-hover:scale-110 transition-transform text-emerald-400">
+                            <i data-lucide="trophy" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-lg font-bold text-white">نسبة نجاح عالية</span>
+                    </div>
+                    <div
+                        class="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm flex flex-col items-center gap-2 group hover:bg-white/10 transition-colors">
+                        <div
+                            class="p-3 bg-blue-500/20 rounded-xl group-hover:scale-110 transition-transform text-blue-400">
+                            <i data-lucide="users" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-lg font-bold text-white">فريق خبراء معتمد</span>
+                    </div>
+                    <div
+                        class="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm flex flex-col items-center gap-2 group hover:bg-white/10 transition-colors">
+                        <div
+                            class="p-3 bg-purple-500/20 rounded-xl group-hover:scale-110 transition-transform text-purple-400">
+                            <i data-lucide="infinity" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-lg font-bold text-white">دعم شامل ومستمر</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+                <button onclick="scrollToSection('about')"
+                    class="p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-emerald-400">
+                    <i data-lucide="chevron-down" class="h-6 w-6"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section (What is accreditation) -->
+    <section class="py-24 bg-gradient-to-b from-background to-slate-50 dark:to-slate-900">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 space-y-4">
+                    <h2 class="text-4xl md:text-5xl font-bold">ما هو التقييم المدرسي والاعتماد؟</h2>
+                    <div class="w-24 h-1 bg-emerald-600 mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 items-start">
+                    <div class="space-y-8">
+                        <div
+                            class="p-8 bg-white dark:bg-slate-900 rounded-3xl border border-emerald-100 dark:border-emerald-900/50 shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                            <div
+                                class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="award" class="w-8 h-8 text-emerald-600"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4 text-emerald-700 dark:text-emerald-500">التقييم المدرسي
+                            </h3>
+                            <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-400">
+                                التقييم المدرسي هو عملية منهجية وشاملة تقوم بها هيئة تقويم التعليم والتدريب (ETEC) من
+                                خلال المركز الوطني للتقويم والتميز المدرسي (تميز) لقياس مدى استيفاء المدارس الخاصة
+                                والعالمية للمعايير الوطنية المعتمدة.
+                            </p>
+                        </div>
+                        <div
+                            class="p-8 bg-white dark:bg-slate-900 rounded-3xl border border-emerald-100 dark:border-emerald-900/50 shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                            <div
+                                class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="check-verified" class="w-8 h-8 text-emerald-600"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4 text-emerald-700 dark:text-emerald-500">الاعتماد المدرسي
+                            </h3>
+                            <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-400">
+                                الاعتماد هو الشهادة الرسمية التي تمنحها الهيئة للمدرسة بعد اجتياز عملية التقييم بنجاح،
+                                والتي تُثبت التزام المدرسة بالمعايير الوطنية للجودة التعليمية.
+                            </p>
+                        </div>
+                        <div
+                            class="p-6 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-900/10 rounded-2xl border-r-4 border-amber-500">
+                            <div class="flex items-start gap-4">
+                                <div class="p-2 bg-amber-100 rounded-lg text-amber-600">
+                                    <i data-lucide="shield" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1 text-slate-800 dark:text-slate-200">المرجع الرسمي
+                                    </h4>
+                                    <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                        للمزيد من المعلومات، يمكنكم زيارة الموقع الإلكتروني الرسمي:
+                                        <a href="https://etec.gov.sa/ar" target="_blank"
+                                            class="text-emerald-600 hover:text-emerald-700 underline font-bold px-1">etec.gov.sa</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="relative pl-4 space-y-8 before:absolute before:top-4 before:bottom-4 before:right-6 before:w-1 before:bg-slate-200 dark:before:bg-slate-800">
+                        <h3 class="text-3xl font-bold mb-8 pr-4">مراحل التقييم المدرسي</h3>
+
+                        <!-- Timeline Items Refined -->
+                        <div class="relative pr-12 group">
+                            <div
+                                class="absolute right-0 top-0 w-12 h-12 bg-white dark:bg-slate-900 border-4 border-emerald-50 text-emerald-600 rounded-full flex items-center justify-center font-bold text-xl shadow-md z-10 group-hover:border-emerald-600 group-hover:scale-110 transition-all">
+                                1</div>
+                            <div
+                                class="p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-md border border-slate-100 dark:border-slate-800 group-hover:shadow-lg transition-all">
+                                <h4 class="text-xl font-bold mb-2 text-slate-800 dark:text-white">التسجيل والإعداد
+                                    الأولي</h4>
+                                <p class="text-slate-500">تسجيل المدرسة في نظام التقويم وتحديد موعد الزيارة</p>
+                            </div>
+                        </div>
+
+                        <div class="relative pr-12 group">
+                            <div
+                                class="absolute right-0 top-0 w-12 h-12 bg-white dark:bg-slate-900 border-4 border-emerald-50 text-emerald-600 rounded-full flex items-center justify-center font-bold text-xl shadow-md z-10 group-hover:border-emerald-600 group-hover:scale-110 transition-all">
+                                2</div>
+                            <div
+                                class="p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-md border border-slate-100 dark:border-slate-800 group-hover:shadow-lg transition-all">
+                                <h4 class="text-xl font-bold mb-2 text-slate-800 dark:text-white">الدراسة الذاتية (SER)
+                                </h4>
+                                <p class="text-slate-500">إعداد تقرير شامل عن أداء المدرسة مقابل معايير ETEC</p>
+                            </div>
+                        </div>
+
+                        <div class="relative pr-12 group">
+                            <div
+                                class="absolute right-0 top-0 w-12 h-12 bg-white dark:bg-slate-900 border-4 border-emerald-50 text-emerald-600 rounded-full flex items-center justify-center font-bold text-xl shadow-md z-10 group-hover:border-emerald-600 group-hover:scale-110 transition-all">
+                                3</div>
+                            <div
+                                class="p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-md border border-slate-100 dark:border-slate-800 group-hover:shadow-lg transition-all">
+                                <h4 class="text-xl font-bold mb-2 text-slate-800 dark:text-white">الزيارة الميدانية</h4>
+                                <p class="text-slate-500">فريق تقويم خارجي يزور المدرسة لمدة 2-4 أيام</p>
+                            </div>
+                        </div>
+
+                        <div class="relative pr-12 group">
+                            <div
+                                class="absolute right-0 top-0 w-12 h-12 bg-white dark:bg-slate-900 border-4 border-emerald-50 text-emerald-600 rounded-full flex items-center justify-center font-bold text-xl shadow-md z-10 group-hover:border-emerald-600 group-hover:scale-110 transition-all">
+                                4</div>
+                            <div
+                                class="p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-md border border-slate-100 dark:border-slate-800 group-hover:shadow-lg transition-all">
+                                <h4 class="text-xl font-bold mb-2 text-slate-800 dark:text-white">التقرير النهائي</h4>
+                                <p class="text-slate-500">إصدار تقرير تقييم شامل مع التصنيف النهائي</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About ETEC Section -->
+    <section id="about" class="py-24 bg-slate-50 dark:bg-slate-900">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 space-y-4">
+                    <h2 class="text-4xl md:text-5xl font-bold">لماذا الاعتماد مهم؟</h2>
+                    <div class="w-24 h-1 bg-emerald-600 mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-8 order-2 md:order-1">
+                        <p class="text-xl font-light leading-relaxed text-slate-700 dark:text-slate-300">
+                            لا يقتصر التقويم على مجرد الحصول على رخصة، بل هو <span
+                                class="font-bold text-emerald-600">رحلة تحول شاملة</span> تهدف إلى رفع كفاءة الأداء
+                            المدرسي، وتحسين نواتج التعلم.
+                        </p>
+                        <div class="space-y-4">
+                            <div
+                                class="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 hover:border-emerald-400 transition-colors cursor-default">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+                                    <i data-lucide="check" class="w-6 h-6"></i>
+                                </div>
+                                <span class="text-lg font-bold text-slate-700 dark:text-slate-200">ضمان الجودة
+                                    التعليمية</span>
+                            </div>
+                            <div
+                                class="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 hover:border-emerald-400 transition-colors cursor-default">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+                                    <i data-lucide="file-check" class="w-6 h-6"></i>
+                                </div>
+                                <span class="text-lg font-bold text-slate-700 dark:text-slate-200">شرط إلزامي
+                                    للرخصة</span>
+                            </div>
+                            <div
+                                class="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 hover:border-emerald-400 transition-colors cursor-default">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+                                    <i data-lucide="heart-handshake" class="w-6 h-6"></i>
+                                </div>
+                                <span class="text-lg font-bold text-slate-700 dark:text-slate-200">تعزيز ثقة أولياء
+                                    الأمور</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-1 md:order-2">
+                        <div class="relative aspect-video rounded-3xl overflow-hidden shadow-2xl group">
+                            <!-- Background Image Mockup -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-emerald-900 to-slate-900"></div>
+                            <div
+                                class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
+                            </div>
+
+                            <div
+                                class="relative z-10 w-full h-full flex flex-col items-center justify-center p-12 text-center text-white space-y-6">
+                                <div
+                                    class="w-24 h-24 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center mb-4 border border-white/20 shadow-glow animate-pulse">
+                                    <i data-lucide="star" class="w-12 h-12 text-yellow-400 fill-current"></i>
+                                </div>
+                                <h3 class="text-4xl font-extrabold tracking-tight">إتقان المعايير</h3>
+                                <p class="text-xl text-emerald-200 font-light">التميز في التعليم يبدأ من هنا</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenges Section -->
+    <section id="challenges" class="py-24 bg-white dark:bg-slate-950">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 space-y-4">
+                <div class="inline-block p-2 px-4 rounded-full bg-red-50 text-red-600 font-bold text-sm mb-2">تنبيه هام
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">نقاط الضعف والتحديات</h2>
+                <p class="text-xl text-slate-500">لماذا تواجه المدارس العالمية صعوبات؟</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 mb-16 items-center">
+                <div class="order-2 md:order-1 grid gap-6">
+                    <!-- Advanced Challenge Cards -->
+                    <div
+                        class="group p-6 bg-white dark:bg-slate-900 rounded-2xl shadow-lg hover:shadow-2xl border border-slate-100 hover:border-red-200 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-2 h-full bg-red-500"></div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="p-3 bg-red-50 rounded-xl text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                                <i data-lucide="file-x" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 group-hover:text-red-700 transition-colors">غياب
+                                    التوثيق</h4>
+                                <p class="text-slate-600 dark:text-slate-400">عدم وجود أدلة مادية وسجلات موثقة تثبت
+                                    الامتثال للمعايير المطلوبة بدقة.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="group p-6 bg-white dark:bg-slate-900 rounded-2xl shadow-lg hover:shadow-2xl border border-slate-100 hover:border-red-200 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-2 h-full bg-red-500"></div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="p-3 bg-red-50 rounded-xl text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                                <i data-lucide="search-x" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 group-hover:text-red-700 transition-colors">ضعف
+                                    التقييم الذاتي</h4>
+                                <p class="text-slate-600 dark:text-slate-400">غياب الآليات الداخلية لقياس الأداء بصدق
+                                    وشفافية مما يؤدي لمفاجآت أثناء الزيارة.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="group p-6 bg-white dark:bg-slate-900 rounded-2xl shadow-lg hover:shadow-2xl border border-slate-100 hover:border-red-200 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-2 h-full bg-red-500"></div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="p-3 bg-red-50 rounded-xl text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                                <i data-lucide="book-x" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 group-hover:text-red-700 transition-colors">المناهج
+                                    غير الموائمة</h4>
+                                <p class="text-slate-600 dark:text-slate-400">عدم تكامل المناهج الدولية مع الهوية
+                                    الوطنية والمتطلبات المحلية الإلزامية.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-1 md:order-2">
+                    <div
+                        class="relative aspect-[4/5] rounded-[3rem] overflow-hidden bg-slate-100 shadow-inner p-8 flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-b from-red-500/10 to-orange-500/10"></div>
+                        <div
+                            class="relative z-10 text-center space-y-6 p-8 bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white/50">
+                            <div
+                                class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto text-red-600 animate-pulse">
+                                <i data-lucide="alert-triangle" class="w-10 h-10"></i>
+                            </div>
+                            <h3 class="text-2xl font-black text-slate-900 leading-relaxed tracking-wide">تحديات الاعتماد
+                                المدرسي</h3>
+                            <p class="text-slate-600 leading-relaxed tracking-wide">
+                                تشير المؤشرات إلى أن العديد من المدارس قد تواجه تحديات في تحقيق المعايير في الزيارات
+                                الأولية نتيجة لغياب التوثيق الدقيق.
+                            </p>
+                            <a href="assessment.html"
+                                class="w-full py-3 bg-red-600 text-white rounded-xl font-bold shadow-lg hover:bg-red-700 transition-colors inline-block leading-relaxed tracking-wide">
+                                اختبر جاهزية مدرستك الآن
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consequences Grid -->
+            <div class="max-w-6xl mx-auto mt-16">
+                <h3 class="text-3xl font-bold mb-8 text-center text-red-600">عواقب عدم الامتثال</h3>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="p-6 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4"><i
+                                data-lucide="ban" class="text-red-600"></i></div>
+                        <h4 class="font-bold mb-2">تعليق الرخصة</h4>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4"><i
+                                data-lucide="dollar-sign" class="text-red-600"></i></div>
+                        <h4 class="font-bold mb-2">وقف الحوافز</h4>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4"><i
+                                data-lucide="building-2" class="text-red-600"></i></div>
+                        <h4 class="font-bold mb-2">فقدان السمعة</h4>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4"><i
+                                data-lucide="trending-down" class="text-orange-600"></i></div>
+                        <h4 class="font-bold mb-2">انخفاض التصنيف</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services (PADET) Section -->
+    <section id="services" class="py-24 bg-slate-50 dark:bg-slate-900 relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-teal-500/5 rounded-full blur-3xl"></div>
+
+        <div class="container mx-auto px-4 max-w-7xl relative z-10">
+            <div class="text-center mb-20 space-y-4">
+                <span class="text-emerald-600 font-bold tracking-wider uppercase text-sm">Our Methodology</span>
+                <h2 class="text-4xl md:text-5xl font-black">خدمات كالكس (CALX)</h2>
+                <p class="text-xl text-slate-500 max-w-2xl mx-auto">نطبق منهجية PADET المُثبتة علمياً لضمان تحقيق أعلى
+                    معايير الجودة.</p>
+            </div>
+
+            <!-- PADET Process Flow -->
+            <div class="relative mb-24">
+                <!-- Connecting Line (Desktop) -->
+                <div
+                    class="hidden md:block absolute top-1/2 left-4 right-4 h-1 bg-gradient-to-r from-emerald-100 via-emerald-200 to-emerald-100 dark:from-emerald-900 dark:via-emerald-800 dark:to-emerald-900 -translate-y-1/2 rounded-full">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+                    <!-- P -->
+                    <div class="relative group">
+                        <div
+                            class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 relative z-10 hover:-translate-y-2 transition-transform duration-300">
+                            <div
+                                class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white text-3xl font-black flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+                                P
+                            </div>
+                            <h4 class="font-bold text-xl mb-1">التخطيط</h4>
+                            <p class="text-emerald-600 text-xs font-bold tracking-widest uppercase mb-4">Plan</p>
+                            <p class="text-sm text-slate-500 leading-relaxed">وضع خطة استراتيجية شاملة بناءً على تقييم
+                                الجاهزية.</p>
+                        </div>
+                    </div>
+                    <!-- A -->
+                    <div class="relative group">
+                        <div
+                            class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 relative z-10 hover:-translate-y-2 transition-transform duration-300">
+                            <div
+                                class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white text-3xl font-black flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+                                A
+                            </div>
+                            <h4 class="font-bold text-xl mb-1">التقييم</h4>
+                            <p class="text-emerald-600 text-xs font-bold tracking-widest uppercase mb-4">Assess</p>
+                            <p class="text-sm text-slate-500 leading-relaxed">تحليل دقيق للوضع الحالي وتحديد الفجوات
+                                بدقة.</p>
+                        </div>
+                    </div>
+                    <!-- D -->
+                    <div class="relative group">
+                        <div
+                            class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 relative z-10 hover:-translate-y-2 transition-transform duration-300">
+                            <div
+                                class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white text-3xl font-black flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+                                D
+                            </div>
+                            <h4 class="font-bold text-xl mb-1">التطوير</h4>
+                            <p class="text-emerald-600 text-xs font-bold tracking-widest uppercase mb-4">Develop</p>
+                            <p class="text-sm text-slate-500 leading-relaxed">بناء العنصر البشري وتطوير الأدلة والوثائق.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- E -->
+                    <div class="relative group">
+                        <div
+                            class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 relative z-10 hover:-translate-y-2 transition-transform duration-300">
+                            <div
+                                class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white text-3xl font-black flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+                                E
+                            </div>
+                            <h4 class="font-bold text-xl mb-1">التنفيذ</h4>
+                            <p class="text-emerald-600 text-xs font-bold tracking-widest uppercase mb-4">Execute</p>
+                            <p class="text-sm text-slate-500 leading-relaxed">تطبيق الإجراءات بفعالية مع متابعة مستمرة.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- T -->
+                    <div class="relative group">
+                        <div
+                            class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 relative z-10 hover:-translate-y-2 transition-transform duration-300">
+                            <div
+                                class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white text-3xl font-black flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+                                T
+                            </div>
+                            <h4 class="font-bold text-xl mb-1">التتبع</h4>
+                            <p class="text-emerald-600 text-xs font-bold tracking-widest uppercase mb-4">Track</p>
+                            <p class="text-sm text-slate-500 leading-relaxed">مراقبة الأثر والتحسين المستمر للنتائج.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Services List -->
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Service Card 1 -->
+                <div
+                    class="group p-8 bg-white dark:bg-slate-900 rounded-3xl hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-emerald-50 to-transparent dark:from-emerald-900/20 opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="relative z-10 flex gap-6">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300 text-emerald-600">
+                            <i data-lucide="bar-chart-3" class="w-8 h-8"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-3 group-hover:text-emerald-600 transition-colors">تقييم
+                                الجاهزية الشامل</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                تحليل معمق للوضع الحالي للمدرسة وتحديد الفجوات مقارنة بمعايير ETEC، مع تقرير تفصيلي
+                                يتضمن نقاط القوة والضعف وتوصيات عملية.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div
+                    class="group p-8 bg-white dark:bg-slate-900 rounded-3xl hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-emerald-50 to-transparent dark:from-emerald-900/20 opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="relative z-10 flex gap-6">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300 text-emerald-600">
+                            <i data-lucide="file-check" class="w-8 h-8"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-3 group-hover:text-emerald-600 transition-colors">دعم
+                                الدراسة الذاتية (SER)</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                مساندة متخصصة للكتابة والتوثيق باحترافية عالية، مع تقديم أمثلة وأدلة موثقة تُظهر
+                                الامتثال الكامل للمتطلبات.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div
+                    class="group p-8 bg-white dark:bg-slate-900 rounded-3xl hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-emerald-50 to-transparent dark:from-emerald-900/20 opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="relative z-10 flex gap-6">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300 text-emerald-600">
+                            <i data-lucide="search" class="w-8 h-8"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-3 group-hover:text-emerald-600 transition-colors">التدقيق
+                                التجريبي (Mock Audit)</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                محاكاة كاملة لزيارة الاعتماد الحقيقية، تشمل المقابلات ومراجعة الوثائق، لضمان الجاهزية
+                                التامة قبل الزيارة الرسمية.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div
+                    class="group p-8 bg-white dark:bg-slate-900 rounded-3xl hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-emerald-50 to-transparent dark:from-emerald-900/20 opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="relative z-10 flex gap-6">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300 text-emerald-600">
+                            <i data-lucide="users" class="w-8 h-8"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-3 group-hover:text-emerald-600 transition-colors">بناء
+                                القدرات والتدريب</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                برامج تدريبية شاملة للمعلمين والقادة لفهم المعايير وتطبيقها بفعالية في الممارسات
+                                اليومية.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Contact -->
+    <section class="py-24 relative overflow-hidden">
+        <!-- Dark Background -->
+        <div class="absolute inset-0 bg-slate-950">
+            <div
+                class="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20">
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 max-w-4xl relative z-10 text-center text-white">
+            <div
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-sm font-medium mb-8">
+                <span class="relative flex h-2 w-2">
+                    <span
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                متاحون الآن للاستشارات
+            </div>
+
+            <h2 class="text-4xl md:text-6xl font-black mb-8 leading-tight">
+                هل أنتم مستعدون <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">للتميز؟</span>
+            </h2>
+
+            <div
+                class="bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10 max-w-2xl mx-auto shadow-2xl">
+                <div class="text-2xl font-bold mb-6">Dani Sinai</div>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center text-lg">
+                    <a href="tel:0599343529"
+                        class="group flex items-center gap-3 px-6 py-3 rounded-xl bg-white/5 hover:bg-emerald-600 hover:text-white transition-all duration-300">
+                        <i data-lucide="phone" class="w-5 h-5 text-emerald-400 group-hover:text-white"></i>
+                        <span dir="ltr" class="font-mono">0599343529</span>
+                    </a>
+                    <a href="mailto:mabdulfattah@calx.sa"
+                        class="group flex items-center gap-3 px-6 py-3 rounded-xl bg-white/5 hover:bg-emerald-600 hover:text-white transition-all duration-300">
+                        <i data-lucide="mail" class="w-5 h-5 text-emerald-400 group-hover:text-white"></i>
+                        <span dir="ltr" class="font-mono">mabdulfattah@calx.sa</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 pb-12 pt-24 border-t border-slate-900">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-12 text-right mb-12">
+                <div class="md:col-span-2 space-y-4">
+                    <img src="images/calx-logo-black-final.gif" class="h-12 w-auto mb-6 opacity-90" alt="Logo">
+                    <p class="text-slate-500 max-w-sm leading-relaxed">
+                        شريك النجاح للمدارس العالمية. نساعدك في تحقيق التميز والاعتماد من خلال حلول مبتكرة وخبراء
+                        معتمدين.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-6 text-lg">روابط سريعة</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#hero" class="hover:text-emerald-400 transition-colors flex items-center gap-2"><i
+                                    data-lucide="chevron-left" class="w-4 h-4"></i> الرئيسية</a></li>
+                        <li><a href="#about" class="hover:text-emerald-400 transition-colors flex items-center gap-2"><i
+                                    data-lucide="chevron-left" class="w-4 h-4"></i> عن التقويم</a></li>
+                        <li><a href="#services"
+                                class="hover:text-emerald-400 transition-colors flex items-center gap-2"><i
+                                    data-lucide="chevron-left" class="w-4 h-4"></i> خدماتنا</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-6 text-lg">تواصل معنا</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3">
+                            <div
+                                class="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center text-emerald-500">
+                                <i data-lucide="map-pin" class="w-4 h-4"></i>
+                            </div>
+                            <span>الرياض، المملكة العربية السعودية</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div
+                                class="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center text-emerald-500">
+                                <i data-lucide="clock" class="w-4 h-4"></i>
+                            </div>
+                            <span>الأحد - الخميس: 9:00 - 17:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+                <div>&copy; 2025 CALX Education. جميع الحقوق محفوظة.</div>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors">سياسة الخصوصية</a>
+                    <a href="#" class="hover:text-white transition-colors">الشروط والأحكام</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic -->
+    <script>
+        // Icons
+        lucide.createIcons();
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth Scroll Function
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                mobileMenu.classList.add('hidden'); // Close menu on click
+            }
+        }
+
+        // Simple Fade In Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-fade-up').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>
