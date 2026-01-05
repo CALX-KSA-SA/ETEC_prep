@@ -604,20 +604,27 @@
             });
         });
     </script>
-    <!-- Floating Action Button for Booking -->
+    <!-- Floating Action Button for Booking (Right) -->
     <button onclick="openBookingModal()"
-        class="fixed top-32 right-6 z-50 bg-pink-700 text-white px-4 py-1.5 rounded-full shadow-lg hover:bg-pink-800 transition transform hover:scale-105 flex items-center gap-2 border border-white/20">
-        <i data-lucide="calendar-clock" class="w-3.5 h-3.5"></i>
-        <span class="font-bold text-xs whitespace-nowrap tracking-wide">Book Appointment</span>
+        class="fixed top-32 right-6 z-50 bg-pink-700 text-white px-3 py-1 rounded-full shadow-lg hover:bg-pink-800 transition transform hover:scale-105 flex items-center gap-1.5 border border-white/20">
+        <i data-lucide="calendar-clock" class="w-3 h-3"></i>
+        <span class="font-bold text-[11px] whitespace-nowrap tracking-wide">Book Appointment</span>
     </button>
+
+    <!-- Floating Action Button for Evaluation (Left) - Mirrored -->
+    <a href="assessment-en.html"
+        class="fixed top-32 left-6 z-50 bg-primary-600 text-white px-3 py-1 rounded-full shadow-lg hover:bg-primary-700 transition transform hover:scale-105 flex items-center gap-1.5 border border-white/20">
+        <i data-lucide="clipboard-check" class="w-3 h-3"></i>
+        <span class="font-bold text-[11px] whitespace-nowrap tracking-wide">Readiness Evaluation</span>
+    </a>
 
     <!-- Booking Modal -->
     <div id="bookingModal"
         class="fixed inset-0 bg-black/50 z-[100] hidden flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all scale-95 opacity-0"
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden transform transition-all scale-95 opacity-0"
             id="bookingModalContent">
             <!-- Header -->
-            <div class="bg-primary-600 p-6 flex justify-between items-center text-white">
+            <div class="bg-primary-600 px-5 py-4 flex justify-between items-center text-white">
                 <h3 class="font-bold text-xl flex items-center gap-2">
                     <i data-lucide="calendar-check" class="w-6 h-6"></i>
                     Schedule Introductory Visit
@@ -628,8 +635,8 @@
             </div>
 
             <!-- Body -->
-            <div class="p-6 space-y-6">
-                <p class="text-gray-600 text-sm">Select a convenient time, and you will be directed to WhatsApp to
+            <div class="p-5 space-y-4">
+                <p class="text-gray-600 text-xs">Select a convenient time, and you will be directed to WhatsApp to
                     confirm the booking with Singapore experts directly.</p>
 
                 <div class="space-y-4">
