@@ -131,12 +131,27 @@
                     </div>
 
                     <!-- Mobile Menu Button -->
-                    <button class="md:hidden p-2 text-secondary hover:text-primary-600">
+                    <button id="mobile-menu-btn" class="md:hidden p-2 text-secondary hover:text-primary-600">
                         <i data-lucide="menu" class="w-6 h-6"></i>
                     </button>
                 </div>
             </div>
         </nav>
+
+        <!-- Mobile Menu (Arabic) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 p-4">
+            <nav class="flex flex-col space-y-4">
+                <a href="#" class="font-bold text-primary-600">الرئيسية</a>
+                <a href="#overview" class="text-gray-600 hover:text-primary-600">عن CALX</a>
+                <a href="#methodology" class="text-gray-600 hover:text-primary-600">الخدمات</a>
+                <a href="#contact" class="text-gray-600 hover:text-primary-600">تواصل معنا</a>
+                <a href="assessment.html" class="text-primary-600 font-bold">تقييم الجاهزية</a>
+                <button onclick="openBookingModal()" class="flex items-center gap-2 text-primary-600 font-bold">
+                    <i data-lucide="calendar-clock" class="w-4 h-4"></i>
+                    <span>حجز موعد</span>
+                </button>
+            </nav>
+        </div>
     </div>
 
     <!-- Basic Hero / Breadcrumb Section -->
@@ -552,6 +567,16 @@
             const sections = document.querySelectorAll('div[id]'); // Select sections with IDs
             const sidebarLinks = document.querySelectorAll('.sidebar-link');
             const navLinks = document.querySelectorAll('#main-nav a[href^="#"]'); // Top nav links only
+
+            // Mobile Menu Logic
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
 
             const observerOptions = {
                 root: null,
