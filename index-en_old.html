@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALX | School Excellence Partner</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    },
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                            950: '#022c22',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Fade Up Animation */
+        .animate-fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .animate-fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Nav Transition */
+        #navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark #navbar.scrolled {
+            background-color: rgba(2, 6, 23, 0.95);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-900 overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-transparent">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+
+                <!-- Logo (Left Side) -->
+                <div class="flex items-center gap-2">
+                    <a href="https://calx.sa" target="_blank" rel="noopener noreferrer">
+                        <img src="images/calx-logo-black2.png" alt="CALX Logo"
+                            class="h-12 w-auto dark:invert hover:scale-105 transition-transform duration-300 cursor-pointer">
+                    </a>
+                </div>
+
+                <!-- Desktop Nav (Right Side) -->
+                <div class="hidden md:flex items-center gap-8">
+                    <button onclick="scrollToSection('hero')"
+                        class="text-base font-semibold text-emerald-600 transition-colors">
+                        Home
+                    </button>
+                    <button onclick="scrollToSection('about')"
+                        class="text-base font-semibold text-slate-700 dark:text-slate-200 hover:text-emerald-600 transition-colors relative group">
+                        Accreditation
+                        <span
+                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-600 transition-all group-hover:w-full"></span>
+                    </button>
+                    <button onclick="scrollToSection('challenges')"
+                        class="text-base font-semibold text-slate-700 dark:text-slate-200 hover:text-emerald-600 transition-colors relative group">
+                        Challenges
+                        <span
+                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-600 transition-all group-hover:w-full"></span>
+                    </button>
+                    <button onclick="scrollToSection('services')"
+                        class="text-base font-semibold text-slate-700 dark:text-slate-200 hover:text-emerald-600 transition-colors relative group">
+                        Services
+                        <span
+                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-600 transition-all group-hover:w-full"></span>
+                    </button>
+
+                    <!-- Language Switcher -->
+                    <a href="index.html"
+                        class="flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-emerald-600 font-arabic border-l border-slate-300 pl-4">
+                        <i data-lucide="globe" class="w-4 h-4"></i> العربية
+                    </a>
+
+                    <button onclick="scrollToSection('services')"
+                        class="bg-gradient-to-r from-emerald-600 to-teal-500 text-white hover:shadow-lg hover:shadow-emerald-500/30 h-10 px-6 rounded-full text-sm font-bold transition-all transform hover:-translate-y-0.5">
+                        Contact Us
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="menu-btn"
+                    class="md:hidden p-2 text-slate-800 dark:text-white hover:bg-slate-100 rounded-full transition-colors">
+                    <i data-lucide="menu" class="h-6 w-6"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Dropdown -->
+            <div id="mobile-menu"
+                class="hidden md:hidden mt-4 pb-4 space-y-4 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md rounded-xl p-4 shadow-2xl border border-slate-100 dark:border-slate-800 absolute w-full left-0 top-16 z-50">
+                <button onclick="scrollToSection('hero')"
+                    class="block w-full text-left px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Home</button>
+                <button onclick="scrollToSection('about')"
+                    class="block w-full text-left px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Accreditation</button>
+                <button onclick="scrollToSection('challenges')"
+                    class="block w-full text-left px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Challenges</button>
+                <button onclick="scrollToSection('services')"
+                    class="block w-full text-left px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-50 hover:text-emerald-600 transition-colors">Services</button>
+
+                <a href="index.html"
+                    class="block w-full text-left px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-50 hover:text-emerald-600 transition-colors font-arabic flex items-center gap-2">
+                    <i data-lucide="globe" class="w-4 h-4"></i> العربية
+                </a>
+
+                <button onclick="scrollToSection('services')"
+                    class="w-full bg-emerald-600 text-white h-10 px-4 py-2 rounded-lg text-sm font-bold shadow-md">
+                    Contact Us
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Dynamic Animated Background -->
+        <div class="absolute inset-0 bg-slate-950">
+            <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-emerald-950/40 to-slate-900 opacity-80">
+            </div>
+            <!-- Animated Gradient Orbs -->
+            <div
+                class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-emerald-500/10 rounded-full blur-[100px] animate-pulse">
+            </div>
+            <div class="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-teal-500/10 rounded-full blur-[100px] animate-pulse"
+                style="animation-delay: 2s;"></div>
+            <div
+                class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150">
+            </div>
+        </div>
+
+        <div class="container relative z-10 mx-auto px-4 py-32 text-center">
+            <div class="max-w-5xl mx-auto space-y-10 animate-fade-up">
+
+                <!-- Badge -->
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm text-emerald-300 text-sm font-medium mb-4">
+                    <span class="relative flex h-3 w-3">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                    </span>
+                    The Leading School Excellence Partner in KSA
+                </div>
+
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] tracking-tight">
+                    Transform your school into a <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-400">nationally
+                        accredited institution of excellence</span>
+                </h1>
+
+                <p class="text-xl md:text-2xl text-slate-300 leading-relaxed max-w-3xl mx-auto font-light">
+                    Join the elite schools accredited by <strong class="text-white">ETEC</strong>. We don't just help
+                    you pass the assessment; we build a <span
+                        class="text-emerald-300 border-b border-emerald-500/30 pb-1">sustainable culture of
+                        excellence</span> ensuring long-term success.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-5 justify-center pt-8">
+                    <button onclick="scrollToSection('services')"
+                        class="group relative h-14 rounded-full px-10 text-lg bg-emerald-600 text-white overflow-hidden shadow-2xl shadow-emerald-900/50 font-bold transition-all hover:scale-105 active:scale-95">
+                        <div
+                            class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                        </div>
+                        <span class="relative z-10 flex items-center gap-2">
+                            Start Your Journey <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </span>
+                    </button>
+                    <button onclick="scrollToSection('challenges')"
+                        class="h-14 rounded-full px-10 text-lg border border-white/20 bg-white/5 text-white hover:bg-white/10 backdrop-blur-sm font-bold transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2">
+                        View Challenges <i data-lucide="alert-circle" class="w-5 h-5 opacity-70"></i>
+                    </button>
+                </div>
+
+                <!-- Stats / Trust Indicators -->
+                <div class="pt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                    <div
+                        class="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm flex flex-col items-center gap-2 group hover:bg-white/10 transition-colors">
+                        <div
+                            class="p-3 bg-emerald-500/20 rounded-xl group-hover:scale-110 transition-transform text-emerald-400">
+                            <i data-lucide="trophy" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-lg font-bold text-white">High Success Rate</span>
+                    </div>
+                    <div
+                        class="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm flex flex-col items-center gap-2 group hover:bg-white/10 transition-colors">
+                        <div
+                            class="p-3 bg-blue-500/20 rounded-xl group-hover:scale-110 transition-transform text-blue-400">
+                            <i data-lucide="users" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-lg font-bold text-white">Certified Experts</span>
+                    </div>
+                    <div
+                        class="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm flex flex-col items-center gap-2 group hover:bg-white/10 transition-colors">
+                        <div
+                            class="p-3 bg-purple-500/20 rounded-xl group-hover:scale-110 transition-transform text-purple-400">
+                            <i data-lucide="infinity" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-lg font-bold text-white">Continuous Support</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+                <button onclick="scrollToSection('about')"
+                    class="p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-emerald-400">
+                    <i data-lucide="chevron-down" class="h-6 w-6"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section (What is accreditation) -->
+    <section id="about" class="py-24 bg-gradient-to-b from-background to-slate-50 dark:to-slate-900">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 space-y-4">
+                    <h2 class="text-4xl md:text-5xl font-bold">Why is Accreditation Important?</h2>
+                    <div class="w-24 h-1 bg-emerald-600 mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 items-start">
+                    <div class="space-y-8">
+                        <div
+                            class="p-8 bg-white dark:bg-slate-900 rounded-3xl border border-emerald-100 dark:border-emerald-900/50 shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                            <div
+                                class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="award" class="w-8 h-8 text-emerald-600"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4 text-emerald-700 dark:text-emerald-500">School Evaluation
+                            </h3>
+                            <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-400">
+                                School evaluation is a systematic process conducted by the Education and Training
+                                Evaluation Commission (ETEC) to measure the extent to which private and international
+                                schools meet approved national standards.
+                            </p>
+                        </div>
+                        <div
+                            class="p-8 bg-white dark:bg-slate-900 rounded-3xl border border-emerald-100 dark:border-emerald-900/50 shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                            <div
+                                class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="check-verified" class="w-8 h-8 text-emerald-600"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4 text-emerald-700 dark:text-emerald-500">Accreditation
+                            </h3>
+                            <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-400">
+                                Accreditation is the official certification granted by the Commission to a school after
+                                successfully passing the evaluation process, proving its commitment to national
+                                education quality standards.
+                            </p>
+                        </div>
+                        <div
+                            class="p-6 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-900/10 rounded-2xl border-l-4 border-amber-500">
+                            <div class="flex items-start gap-4">
+                                <div class="p-2 bg-amber-100 rounded-lg text-amber-600">
+                                    <i data-lucide="shield" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1 text-slate-800 dark:text-slate-200">Official
+                                        Reference</h4>
+                                    <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                        For more information, visit the official website:
+                                        <a href="https://etec.gov.sa/en" target="_blank"
+                                            class="text-emerald-600 hover:text-emerald-700 underline font-bold px-1">etec.gov.sa</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative pl-4 space-y-8 border-l border-slate-200 dark:border-slate-800 ml-4 lg:ml-8">
+                        <h3 class="text-3xl font-bold mb-8 pl-4">Assessment Stages</h3>
+
+                        <!-- Timeline Items Refined -->
+                        <div class="relative pl-12 group">
+                            <div
+                                class="absolute left-[-2.5rem] top-0 w-12 h-12 bg-white dark:bg-slate-900 border-4 border-emerald-50 text-emerald-600 rounded-full flex items-center justify-center font-bold text-xl shadow-md z-10 group-hover:border-emerald-600 group-hover:scale-110 transition-all">
+                                1</div>
+                            <div
+                                class="p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-md border border-slate-100 dark:border-slate-800 group-hover:shadow-lg transition-all">
+                                <h4 class="text-xl font-bold mb-2 text-slate-800 dark:text-white">Registration</h4>
+                                <p class="text-slate-500">Registering the school in the evaluation system and scheduling
+                                    the visit.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative pl-12 group">
+                            <div
+                                class="absolute left-[-2.5rem] top-0 w-12 h-12 bg-white dark:bg-slate-900 border-4 border-emerald-50 text-emerald-600 rounded-full flex items-center justify-center font-bold text-xl shadow-md z-10 group-hover:border-emerald-600 group-hover:scale-110 transition-all">
+                                2</div>
+                            <div
+                                class="p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-md border border-slate-100 dark:border-slate-800 group-hover:shadow-lg transition-all">
+                                <h4 class="text-xl font-bold mb-2 text-slate-800 dark:text-white">Self-Study (SER)</h4>
+                                <p class="text-slate-500">Preparing a comprehensive report on school performance against
+                                    ETEC standards.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative pl-12 group">
+                            <div
+                                class="absolute left-[-2.5rem] top-0 w-12 h-12 bg-white dark:bg-slate-900 border-4 border-emerald-50 text-emerald-600 rounded-full flex items-center justify-center font-bold text-xl shadow-md z-10 group-hover:border-emerald-600 group-hover:scale-110 transition-all">
+                                3</div>
+                            <div
+                                class="p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-md border border-slate-100 dark:border-slate-800 group-hover:shadow-lg transition-all">
+                                <h4 class="text-xl font-bold mb-2 text-slate-800 dark:text-white">Field Visit</h4>
+                                <p class="text-slate-500">Site visit by external evaluation team for 2-4 days.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative pl-12 group">
+                            <div
+                                class="absolute left-[-2.5rem] top-0 w-12 h-12 bg-white dark:bg-slate-900 border-4 border-emerald-50 text-emerald-600 rounded-full flex items-center justify-center font-bold text-xl shadow-md z-10 group-hover:border-emerald-600 group-hover:scale-110 transition-all">
+                                4</div>
+                            <div
+                                class="p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-md border border-slate-100 dark:border-slate-800 group-hover:shadow-lg transition-all">
+                                <h4 class="text-xl font-bold mb-2 text-slate-800 dark:text-white">Final Report</h4>
+                                <p class="text-slate-500">Issuance of comprehensive evaluation report and final
+                                    classification.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Accreditation Matters - Transformation Journey -->
+    <section class="py-24 bg-slate-50 dark:bg-slate-900">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 space-y-4">
+                    <h2 class="text-4xl md:text-5xl font-bold">Why is Accreditation Important?</h2>
+                    <div class="w-24 h-1 bg-emerald-600 mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-8 order-2 md:order-1">
+                        <p class="text-xl font-light leading-relaxed text-slate-700 dark:text-slate-300">
+                            Evaluation is not just about obtaining a license, but a <span
+                                class="font-bold text-emerald-600">comprehensive transformation journey</span> aimed at
+                            raising school performance efficiency and improving learning outcomes.
+                        </p>
+                        <div class="space-y-4">
+                            <div
+                                class="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 hover:border-emerald-400 transition-colors cursor-default">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+                                    <i data-lucide="check" class="w-6 h-6"></i>
+                                </div>
+                                <span class="text-lg font-bold text-slate-700 dark:text-slate-200">Ensuring Educational
+                                    Quality</span>
+                            </div>
+                            <div
+                                class="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 hover:border-emerald-400 transition-colors cursor-default">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+                                    <i data-lucide="file-check" class="w-6 h-6"></i>
+                                </div>
+                                <span class="text-lg font-bold text-slate-700 dark:text-slate-200">Mandatory Requirement
+                                    from the Education Evaluation Commission</span>
+                            </div>
+                            <div
+                                class="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 hover:border-emerald-400 transition-colors cursor-default">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+                                    <i data-lucide="heart-handshake" class="w-6 h-6"></i>
+                                </div>
+                                <span class="text-lg font-bold text-slate-700 dark:text-slate-200">Enhancing Parent
+                                    Confidence</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-1 md:order-2">
+                        <div class="relative aspect-video rounded-3xl overflow-hidden shadow-2xl group">
+                            <!-- Background Image Mockup -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-emerald-900 to-slate-900"></div>
+                            <div
+                                class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
+                            </div>
+
+                            <div
+                                class="relative z-10 w-full h-full flex flex-col items-center justify-center p-12 text-center text-white space-y-6">
+                                <div
+                                    class="w-24 h-24 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center mb-4 border border-white/20 shadow-glow animate-pulse">
+                                    <i data-lucide="star" class="w-12 h-12 text-yellow-400 fill-current"></i>
+                                </div>
+                                <h3 class="text-4xl font-extrabold tracking-tight">Mastering Standards</h3>
+                                <p class="text-xl text-emerald-200 font-light">Excellence in Education Starts Here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenges Section -->
+    <section id="challenges" class="py-24 bg-white dark:bg-slate-950">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 space-y-4">
+                <div class="inline-block p-2 px-4 rounded-full bg-red-50 text-red-600 font-bold text-sm mb-2">Important
+                    Alert</div>
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">Weaknesses & Challenges</h2>
+                <p class="text-xl text-slate-500">Why do international schools face difficulties?</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 mb-16 items-center">
+                <div class="grid gap-6">
+                    <!-- Advanced Challenge Cards -->
+                    <div
+                        class="group p-6 bg-white dark:bg-slate-900 rounded-2xl shadow-lg hover:shadow-2xl border border-slate-100 hover:border-red-200 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-red-500"></div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="p-3 bg-red-50 rounded-xl text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                                <i data-lucide="file-x" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 group-hover:text-red-700 transition-colors">Lack of
+                                    Documentation</h4>
+                                <p class="text-slate-600 dark:text-slate-400">Absence of tangible evidence and
+                                    documented records proving exact compliance with standards.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="group p-6 bg-white dark:bg-slate-900 rounded-2xl shadow-lg hover:shadow-2xl border border-slate-100 hover:border-red-200 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-red-500"></div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="p-3 bg-red-50 rounded-xl text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                                <i data-lucide="search-x" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 group-hover:text-red-700 transition-colors">Weak
+                                    Self-Evaluation</h4>
+                                <p class="text-slate-600 dark:text-slate-400">Lack of internal mechanisms to measure
+                                    performance honestly and transparently, leading to surprises during visits.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="group p-6 bg-white dark:bg-slate-900 rounded-2xl shadow-lg hover:shadow-2xl border border-slate-100 hover:border-red-200 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-red-500"></div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="p-3 bg-red-50 rounded-xl text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                                <i data-lucide="book-x" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 group-hover:text-red-700 transition-colors">Misaligned
+                                    Curriculum</h4>
+                                <p class="text-slate-600 dark:text-slate-400">International curricula not integrated
+                                    with national identity and local mandatory requirements.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div
+                        class="relative aspect-[4/5] rounded-[3rem] overflow-hidden bg-slate-100 shadow-inner p-8 flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-b from-red-500/10 to-orange-500/10"></div>
+                        <div
+                            class="relative z-10 text-center space-y-6 p-8 bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white/50">
+                            <div
+                                class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto text-red-600 animate-pulse">
+                                <i data-lucide="alert-triangle" class="w-10 h-10"></i>
+                            </div>
+                            <h3 class="text-2xl font-black text-slate-900 leading-relaxed tracking-wide">Accreditation
+                                Challenges</h3>
+                            <p class="text-slate-600 leading-relaxed tracking-wide">
+                                Indicators suggest many schools face challenges meeting standards in initial visits due
+                                to lack of accurate documentation.
+                            </p>
+                            <a href="assessment-en.html"
+                                class="w-full py-3 bg-red-600 text-white rounded-xl font-bold shadow-lg hover:bg-red-700 transition-colors inline-block leading-relaxed tracking-wide">
+                                Test Your School Readiness
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consequences Grid -->
+            <div class="max-w-6xl mx-auto mt-16">
+                <h3 class="text-3xl font-bold mb-8 text-center text-red-600">Consequences of Non-Compliance</h3>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="p-6 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4"><i
+                                data-lucide="ban" class="text-red-600"></i></div>
+                        <h4 class="font-bold mb-2">License Suspension</h4>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4"><i
+                                data-lucide="dollar-sign" class="text-red-600"></i></div>
+                        <h4 class="font-bold mb-2">Halted Incentives</h4>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4"><i
+                                data-lucide="building-2" class="text-red-600"></i></div>
+                        <h4 class="font-bold mb-2">Loss of Reputation</h4>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-xl border border-slate-200">
+                        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4"><i
+                                data-lucide="trending-down" class="text-orange-600"></i></div>
+                        <h4 class="font-bold mb-2">Rating Drop</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services (PADET) Section -->
+    <section id="services" class="py-24 bg-slate-50 dark:bg-slate-900 relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-teal-500/5 rounded-full blur-3xl"></div>
+
+        <div class="container mx-auto px-4 max-w-7xl relative z-10">
+            <div class="text-center mb-20 space-y-4">
+                <span class="text-emerald-600 font-bold tracking-wider uppercase text-sm">Our Methodology</span>
+                <h2 class="text-4xl md:text-5xl font-black">CALX Services</h2>
+                <p class="text-xl text-slate-500 max-w-2xl mx-auto">We apply the scientifically proven PADET methodology
+                    to ensure the highest quality standards.</p>
+            </div>
+
+            <!-- PADET Process Flow -->
+            <div class="relative mb-24">
+                <!-- Connecting Line (Desktop) -->
+                <div
+                    class="hidden md:block absolute top-1/2 left-4 right-4 h-1 bg-gradient-to-r from-emerald-100 via-emerald-200 to-emerald-100 dark:from-emerald-900 dark:via-emerald-800 dark:to-emerald-900 -translate-y-1/2 rounded-full">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+                    <!-- P -->
+                    <div class="relative group">
+                        <div
+                            class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 relative z-10 hover:-translate-y-2 transition-transform duration-300">
+                            <div
+                                class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white text-3xl font-black flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+                                P
+                            </div>
+                            <h4 class="font-bold text-xl mb-1">Plan</h4>
+                            <p class="text-emerald-600 text-xs font-bold tracking-widest uppercase mb-4">Planning</p>
+                            <p class="text-sm text-slate-500 leading-relaxed">Developing a comprehensive strategic plan
+                                based on readiness assessment.</p>
+                        </div>
+                    </div>
+                    <!-- A -->
+                    <div class="relative group">
+                        <div
+                            class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 relative z-10 hover:-translate-y-2 transition-transform duration-300">
+                            <div
+                                class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white text-3xl font-black flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+                                A
+                            </div>
+                            <h4 class="font-bold text-xl mb-1">Assess</h4>
+                            <p class="text-emerald-600 text-xs font-bold tracking-widest uppercase mb-4">Assessment</p>
+                            <p class="text-sm text-slate-500 leading-relaxed">Precise analysis of the current situation
+                                and gap identification.</p>
+                        </div>
+                    </div>
+                    <!-- D -->
+                    <div class="relative group">
+                        <div
+                            class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 relative z-10 hover:-translate-y-2 transition-transform duration-300">
+                            <div
+                                class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white text-3xl font-black flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+                                D
+                            </div>
+                            <h4 class="font-bold text-xl mb-1">Develop</h4>
+                            <p class="text-emerald-600 text-xs font-bold tracking-widest uppercase mb-4">Development</p>
+                            <p class="text-sm text-slate-500 leading-relaxed">Building human capacity and developing
+                                manuals/documentation.</p>
+                        </div>
+                    </div>
+                    <!-- E -->
+                    <div class="relative group">
+                        <div
+                            class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 relative z-10 hover:-translate-y-2 transition-transform duration-300">
+                            <div
+                                class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white text-3xl font-black flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+                                E
+                            </div>
+                            <h4 class="font-bold text-xl mb-1">Execute</h4>
+                            <p class="text-emerald-600 text-xs font-bold tracking-widest uppercase mb-4">Execution</p>
+                            <p class="text-sm text-slate-500 leading-relaxed">Effective application of procedures with
+                                continuous monitoring.</p>
+                        </div>
+                    </div>
+                    <!-- T -->
+                    <div class="relative group">
+                        <div
+                            class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 relative z-10 hover:-translate-y-2 transition-transform duration-300">
+                            <div
+                                class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white text-3xl font-black flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+                                T
+                            </div>
+                            <h4 class="font-bold text-xl mb-1">Track</h4>
+                            <p class="text-emerald-600 text-xs font-bold tracking-widest uppercase mb-4">Tracking</p>
+                            <p class="text-sm text-slate-500 leading-relaxed">Monitoring impact and continuous
+                                improvement of results.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Services List -->
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Service Card 1 -->
+                <div
+                    class="group p-8 bg-white dark:bg-slate-900 rounded-3xl hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-emerald-50 to-transparent dark:from-emerald-900/20 opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="relative z-10 flex gap-6">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300 text-emerald-600">
+                            <i data-lucide="bar-chart-3" class="w-8 h-8"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-3 group-hover:text-emerald-600 transition-colors">
+                                Comprehensive Readiness Assessment</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                In-depth analysis of current school status and gap identification against ETEC
+                                standards, with detailed reporting on strengths, weaknesses, and actionable
+                                recommendations.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div
+                    class="group p-8 bg-white dark:bg-slate-900 rounded-3xl hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-emerald-50 to-transparent dark:from-emerald-900/20 opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="relative z-10 flex gap-6">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300 text-emerald-600">
+                            <i data-lucide="file-check" class="w-8 h-8"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-3 group-hover:text-emerald-600 transition-colors">
+                                Self-Study Support (SER)</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Specialized support for professional writing and documentation, providing examples and
+                                verified evidence demonstrating full compliance with requirements.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div
+                    class="group p-8 bg-white dark:bg-slate-900 rounded-3xl hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-emerald-50 to-transparent dark:from-emerald-900/20 opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="relative z-10 flex gap-6">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300 text-emerald-600">
+                            <i data-lucide="search" class="w-8 h-8"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-3 group-hover:text-emerald-600 transition-colors">Mock
+                                Audit</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Full simulation of the actual accreditation visit, including interviews and document
+                                review, to ensure complete readiness before the official visit.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div
+                    class="group p-8 bg-white dark:bg-slate-900 rounded-3xl hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-emerald-50 to-transparent dark:from-emerald-900/20 opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="relative z-10 flex gap-6">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300 text-emerald-600">
+                            <i data-lucide="users" class="w-8 h-8"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-3 group-hover:text-emerald-600 transition-colors">Capacity
+                                Building & Training</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Comprehensive training programs for teachers and leaders to understand standards and
+                                apply them effectively in daily practices. <strong>Our team includes free experts from
+                                    Singapore and the UK</strong>, bringing international best practices to your school.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Contact -->
+    <section class="py-24 relative overflow-hidden">
+        <!-- Dark Background -->
+        <div class="absolute inset-0 bg-slate-950">
+            <div
+                class="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20">
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 max-w-4xl relative z-10 text-center text-white">
+            <div
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-sm font-medium mb-8">
+                <span class="relative flex h-2 w-2">
+                    <span
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                Available Now for Consultation
+            </div>
+
+            <h2 class="text-4xl md:text-6xl font-black mb-8 leading-tight">
+                Are you ready for <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">Excellence?</span>
+            </h2>
+
+            <div
+                class="bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10 max-w-2xl mx-auto shadow-2xl">
+                <div class="text-2xl font-bold mb-6">Dani Sinai</div>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center text-lg">
+                    <a href="https://wa.me/966599343529" target="_blank" rel="noopener noreferrer"
+                        class="group flex items-center gap-3 px-6 py-3 rounded-xl bg-white/5 hover:bg-emerald-600 hover:text-white transition-all duration-300">
+                        <i data-lucide="phone" class="w-5 h-5 text-emerald-400 group-hover:text-white"></i>
+                        <span class="font-mono">0599343529</span>
+                    </a>
+                    <a href="mailto:mabdulfattah@calx.sa"
+                        class="group flex items-center gap-3 px-6 py-3 rounded-xl bg-white/5 hover:bg-emerald-600 hover:text-white transition-all duration-300">
+                        <i data-lucide="mail" class="w-5 h-5 text-emerald-400 group-hover:text-white"></i>
+                        <span class="font-mono">mabdulfattah@calx.sa</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 pb-12 pt-24 border-t border-slate-900">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="md:col-span-2 space-y-4">
+                    <a href="https://calx.sa" target="_blank" rel="noopener noreferrer">
+                        <img src="images/calx-logo-black-final.gif"
+                            class="h-12 w-auto mb-6 opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
+                            alt="Logo">
+                    </a>
+                    <p class="text-slate-500 max-w-sm leading-relaxed">
+                        The Success Partner for International Schools. We help you achieve excellence and accreditation
+                        through innovative solutions and certified experts.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-6 text-lg">Quick Links</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#hero" class="hover:text-emerald-400 transition-colors flex items-center gap-2"><i
+                                    data-lucide="chevron-right" class="w-4 h-4"></i> Home</a></li>
+                        <li><a href="#about" class="hover:text-emerald-400 transition-colors flex items-center gap-2"><i
+                                    data-lucide="chevron-right" class="w-4 h-4"></i> Accreditation</a></li>
+                        <li><a href="#services"
+                                class="hover:text-emerald-400 transition-colors flex items-center gap-2"><i
+                                    data-lucide="chevron-right" class="w-4 h-4"></i> Services</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-6 text-lg">Context Us</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3">
+                            <div
+                                class="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center text-emerald-500">
+                                <i data-lucide="map-pin" class="w-4 h-4"></i>
+                            </div>
+                            <span>Riyadh, Saudi Arabia</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div
+                                class="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center text-emerald-500">
+                                <i data-lucide="clock" class="w-4 h-4"></i>
+                            </div>
+                            <span>Sunday - Thursday: 9:00 - 17:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+                <div>&copy; 2025 CALX Education. All rights reserved.</div>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic -->
+    <script>
+        // Icons
+        lucide.createIcons();
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth Scroll Function
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                mobileMenu.classList.add('hidden'); // Close menu on click
+            }
+        }
+
+        // Simple Fade In Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-fade-up').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>

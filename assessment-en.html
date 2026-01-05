@@ -4,21 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Readiness Assessment - CALX Validation</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Google Fonts: Inter -->
+    <title>CALX | School Readiness Evaluation</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Tajawal', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            DEFAULT: '#008F68', // Emerald Green
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#008F68',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        secondary: {
+                            DEFAULT: '#1A3047', // Dark Navy
+                            light: '#2D3748',
+                            dark: '#111827',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #F4F7F6;
         }
 
         /* Custom Scrollbar */
@@ -39,61 +76,29 @@
             background: #94a3b8;
         }
     </style>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        arabic: ['Cairo', 'sans-serif'],
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        emerald: {
-                            50: '#ecfdf5',
-                            100: '#d1fae5',
-                            500: '#10b981',
-                            600: '#059669',
-                            900: '#064e3b',
-                        },
-                        slate: {
-                            800: '#1e293b',
-                            900: '#0f172a',
-                            950: '#020617',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
 </head>
 
-<body class="bg-slate-50 text-slate-800">
+<body class="bg-[#F4F7F6] text-secondary">
 
     <!-- Header -->
-    <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
+    <header class="bg-white/90 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center gap-4">
                 <a href="index-en.html"
-                    class="flex items-center gap-2 text-slate-500 hover:text-emerald-600 transition-colors">
+                    class="flex items-center gap-2 text-gray-500 hover:text-primary-600 transition-colors">
                     <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                    <span class="hidden sm:inline">Back</span>
+                    <span class="hidden sm:inline">Back to Home</span>
                 </a>
             </div>
 
             <div class="flex items-center gap-3">
-                <span class="font-bold text-lg text-slate-800">Readiness Assessment Tool</span>
-                <div class="h-8 w-px bg-slate-200 mx-2"></div>
-                <a href="https://calx.sa" target="_blank" rel="noopener noreferrer">
-                    <img src="images/calx-logo-black-final.gif" alt="CALX Logo"
+                <span class="font-bold text-lg text-secondary">Readiness Evaluation Tool</span>
+                <div class="h-8 w-px bg-gray-200 mx-2"></div>
+                <a href="index-en.html">
+                    <img src="images/calx-logo-black2.png" alt="CALX Logo"
                         class="h-8 w-auto cursor-pointer hover:opacity-80 transition-opacity">
                 </a>
 
-                <!-- Language Switcher -->
-                <a href="assessment.html"
-                    class="ml-4 flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-emerald-600 font-arabic border-l border-slate-300 pl-4">
-                    <i data-lucide="globe" class="w-4 h-4"></i> العربية
-                </a>
             </div>
         </div>
     </header>
@@ -105,349 +110,157 @@
             <div class="flex-1 space-y-8">
 
                 <!-- Intro -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
-                    <h1 class="text-3xl font-black mb-4 text-slate-900">Test Your School's Readiness</h1>
-                    <p class="text-slate-600 leading-relaxed text-lg">
-                        Answer the following questions honestly to evaluate your school's current status. Use a scale
-                        from 1 (Very Weak) to 5 (Excellent).
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <h1 class="text-3xl font-black mb-4 text-secondary">Test Your School's Readiness</h1>
+                    <p class="text-gray-600 leading-relaxed text-lg">
+                        Answer the following 41 questions honestly to assess your school's current status against ETEC
+                        standards.
+                        Use the scale from 1 (Low) to 5 (High).
                     </p>
                 </div>
 
-                <!-- Section A -->
-                <div class="section-container bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden"
+                <!-- Section A: Governance -->
+                <div class="section-container bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
                     data-section="A">
-                    <div class="bg-slate-900 p-6 text-white flex justify-between items-center">
+                    <div class="bg-secondary p-6 text-white flex justify-between items-center">
                         <h2 class="text-xl font-bold flex items-center gap-3">
                             <span
-                                class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-sm">A</span>
+                                class="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center text-sm">A</span>
                             Governance & Leadership
                         </h2>
-                        <span class="text-emerald-400 text-sm font-mono score-badge">0/20</span>
+                        <span class="text-primary-400 text-sm font-mono score-badge" data-count="9">0/45</span>
                     </div>
-
-                    <div class="divide-y divide-slate-100">
-                        <!-- Q1 -->
-                        <div class="p-6 question-row" data-id="a1">
-                            <p class="font-semibold mb-4 text-lg">1. Does the school have a trained self-evaluation team
-                                in place?</p>
-
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                <div class="flex gap-2 bg-slate-50 p-2 rounded-lg rating-group">
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center peer"
-                                        onclick="setScore(this, 'A', 1)">1</button>
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center peer"
-                                        onclick="setScore(this, 'A', 2)">2</button>
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center peer"
-                                        onclick="setScore(this, 'A', 3)">3</button>
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center peer"
-                                        onclick="setScore(this, 'A', 4)">4</button>
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center peer"
-                                        onclick="setScore(this, 'A', 5)">5</button>
-                                </div>
-                                <input type="text" placeholder="Notes (Optional)"
-                                    class="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:border-emerald-500 transition-colors text-sm">
-                            </div>
-                        </div>
-
-                        <!-- Q2 -->
-                        <div class="p-6 question-row" data-id="a2">
-                            <p class="font-semibold mb-4 text-lg">2. Has the school principal reviewed and understood
-                                the accreditation framework?</p>
-
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                <div class="flex gap-2 bg-slate-50 p-2 rounded-lg rating-group">
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center"
-                                        onclick="setScore(this, 'A', 1)">1</button>
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center"
-                                        onclick="setScore(this, 'A', 2)">2</button>
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center"
-                                        onclick="setScore(this, 'A', 3)">3</button>
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center"
-                                        onclick="setScore(this, 'A', 4)">4</button>
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center"
-                                        onclick="setScore(this, 'A', 5)">5</button>
-                                </div>
-                                <input type="text" placeholder="Notes (Optional)"
-                                    class="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:border-emerald-500 transition-colors text-sm">
-                            </div>
-                        </div>
-
-                        <!-- Q3 -->
-                        <div class="p-6 question-row" data-id="a3">
-                            <p class="font-semibold mb-4 text-lg">3. Are clear governance structures and performance
-                                indicators established?</p>
-
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                <div class="flex gap-2 bg-slate-50 p-2 rounded-lg rating-group">
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center"
-                                        onclick="setScore(this, 'A', 1)">1</button>
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center"
-                                        onclick="setScore(this, 'A', 2)">2</button>
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center"
-                                        onclick="setScore(this, 'A', 3)">3</button>
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center"
-                                        onclick="setScore(this, 'A', 4)">4</button>
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center"
-                                        onclick="setScore(this, 'A', 5)">5</button>
-                                </div>
-                                <input type="text" placeholder="Notes (Optional)"
-                                    class="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:border-emerald-500 transition-colors text-sm">
-                            </div>
-                        </div>
-
-                        <!-- Q4 -->
-                        <div class="p-6 question-row" data-id="a4">
-                            <p class="font-semibold mb-4 text-lg">4. Is there evidence of transparency, accountability,
-                                and integrity in data collection?</p>
-
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                <div class="flex gap-2 bg-slate-50 p-2 rounded-lg rating-group">
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center"
-                                        onclick="setScore(this, 'A', 1)">1</button>
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center"
-                                        onclick="setScore(this, 'A', 2)">2</button>
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center"
-                                        onclick="setScore(this, 'A', 3)">3</button>
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center"
-                                        onclick="setScore(this, 'A', 4)">4</button>
-                                    <button type="button"
-                                        class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center"
-                                        onclick="setScore(this, 'A', 5)">5</button>
-                                </div>
-                                <input type="text" placeholder="Notes (Optional)"
-                                    class="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:border-emerald-500 transition-colors text-sm">
-                            </div>
-                        </div>
-                    </div>
+                    <div class="divide-y divide-gray-100" id="section-a-questions"></div>
                 </div>
 
-                <!-- Section B -->
-                <div class="section-container bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden"
+                <!-- Section B: Teaching -->
+                <div class="section-container bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
                     data-section="B">
-                    <div class="bg-slate-900 p-6 text-white flex justify-between items-center">
+                    <div class="bg-secondary p-6 text-white flex justify-between items-center">
                         <h2 class="text-xl font-bold flex items-center gap-3">
                             <span
-                                class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-sm">B</span>
+                                class="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center text-sm">B</span>
                             Teaching & Learning
                         </h2>
-                        <span class="text-emerald-400 text-sm font-mono score-badge">0/20</span>
+                        <span class="text-primary-400 text-sm font-mono score-badge" data-count="9">0/45</span>
                     </div>
-                    <div class="divide-y divide-slate-100" id="section-b-questions">
-                        <!-- Q1 -->
-                        <div class="p-6 question-row" data-id="b1">
-                            <p class="font-semibold mb-4 text-lg">1. Are teachers’ lesson plans, assessments, and
-                                feedback aligned with accreditation standards?</p>
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                <div class="flex gap-2 bg-slate-50 p-2 rounded-lg rating-group">
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 1)">1</button>
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 2)">2</button>
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 3)">3</button>
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 4)">4</button>
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 5)">5</button>
-                                </div>
-                                <input type="text" placeholder="Notes" class="flex-1 input-field">
-                            </div>
-                        </div>
-                        <!-- Q2 -->
-                        <div class="p-6 question-row" data-id="b2">
-                            <p class="font-semibold mb-4 text-lg">2. Are diverse teaching methods used to address
-                                students’ different learning needs?</p>
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                <div class="flex gap-2 bg-slate-50 p-2 rounded-lg rating-group">
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 1)">1</button>
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 2)">2</button>
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 3)">3</button>
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 4)">4</button>
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 5)">5</button>
-                                </div>
-                                <input type="text" placeholder="Notes" class="flex-1 input-field">
-                            </div>
-                        </div>
-                        <!-- Q3 -->
-                        <div class="p-6 question-row" data-id="b3">
-                            <p class="font-semibold mb-4 text-lg">3. Is active learning and e-learning integration
-                                evident in classroom practices?</p>
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                <div class="flex gap-2 bg-slate-50 p-2 rounded-lg rating-group">
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 1)">1</button>
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 2)">2</button>
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 3)">3</button>
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 4)">4</button>
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 5)">5</button>
-                                </div>
-                                <input type="text" placeholder="Notes" class="flex-1 input-field">
-                            </div>
-                        </div>
-                        <!-- Q4 -->
-                        <div class="p-6 question-row" data-id="b4">
-                            <p class="font-semibold mb-4 text-lg">4. Are higher-order thinking skills and creativity
-                                promoted?</p>
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                <div class="flex gap-2 bg-slate-50 p-2 rounded-lg rating-group">
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 1)">1</button>
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 2)">2</button>
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 3)">3</button>
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 4)">4</button>
-                                    <button type="button" class="w-10 h-10 rounded-btn"
-                                        onclick="setScore(this, 'B', 5)">5</button>
-                                </div>
-                                <input type="text" placeholder="Notes" class="flex-1 input-field">
-                            </div>
-                        </div>
-                    </div>
+                    <div class="divide-y divide-gray-100" id="section-b-questions"></div>
                 </div>
 
-                <!-- Section C -->
-                <div class="section-container bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden"
+                <!-- Section C: Outcomes -->
+                <div class="section-container bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
                     data-section="C">
-                    <div class="bg-slate-900 p-6 text-white flex justify-between items-center">
+                    <div class="bg-secondary p-6 text-white flex justify-between items-center">
                         <h2 class="text-xl font-bold flex items-center gap-3">
                             <span
-                                class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-sm">C</span>
+                                class="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center text-sm">C</span>
                             Learning Outcomes
                         </h2>
-                        <span class="text-emerald-400 text-sm font-mono score-badge">0/20</span>
+                        <span class="text-primary-400 text-sm font-mono score-badge" data-count="6">0/30</span>
                     </div>
-                    <div class="divide-y divide-slate-100" id="section-c-questions"></div>
+                    <div class="divide-y divide-gray-100" id="section-c-questions"></div>
                 </div>
 
-                <!-- Section D -->
-                <div class="section-container bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden"
+                <!-- Section D: Environment -->
+                <div class="section-container bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
                     data-section="D">
-                    <div class="bg-slate-900 p-6 text-white flex justify-between items-center">
+                    <div class="bg-secondary p-6 text-white flex justify-between items-center">
                         <h2 class="text-xl font-bold flex items-center gap-3">
                             <span
-                                class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-sm">D</span>
+                                class="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center text-sm">D</span>
                             School Environment
                         </h2>
-                        <span class="text-emerald-400 text-sm font-mono score-badge">0/20</span>
+                        <span class="text-primary-400 text-sm font-mono score-badge" data-count="6">0/30</span>
                     </div>
-                    <div class="divide-y divide-slate-100" id="section-d-questions"></div>
+                    <div class="divide-y divide-gray-100" id="section-d-questions"></div>
                 </div>
 
-                <!-- Section E -->
-                <div class="section-container bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden"
+                <!-- Section E: Engagement -->
+                <div class="section-container bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
                     data-section="E">
-                    <div class="bg-slate-900 p-6 text-white flex justify-between items-center">
+                    <div class="bg-secondary p-6 text-white flex justify-between items-center">
                         <h2 class="text-xl font-bold flex items-center gap-3">
                             <span
-                                class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-sm">E</span>
+                                class="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center text-sm">E</span>
                             Community Engagement
                         </h2>
-                        <span class="text-emerald-400 text-sm font-mono score-badge">0/20</span>
+                        <span class="text-primary-400 text-sm font-mono score-badge" data-count="5">0/25</span>
                     </div>
-                    <div class="divide-y divide-slate-100" id="section-e-questions"></div>
+                    <div class="divide-y divide-gray-100" id="section-e-questions"></div>
                 </div>
 
-                <!-- Section F -->
-                <div class="section-container bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden"
+                <!-- Section F: Improvement -->
+                <div class="section-container bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
                     data-section="F">
-                    <div class="bg-slate-900 p-6 text-white flex justify-between items-center">
+                    <div class="bg-secondary p-6 text-white flex justify-between items-center">
                         <h2 class="text-xl font-bold flex items-center gap-3">
                             <span
-                                class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-sm">F</span>
-                            Improvement & Sustainability
+                                class="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center text-sm">F</span>
+                            Continuous Improvement
                         </h2>
-                        <span class="text-emerald-400 text-sm font-mono score-badge">0/20</span>
+                        <span class="text-primary-400 text-sm font-mono score-badge" data-count="6">0/30</span>
                     </div>
-                    <div class="divide-y divide-slate-100" id="section-f-questions"></div>
+                    <div class="divide-y divide-gray-100" id="section-f-questions"></div>
                 </div>
+
             </div>
 
             <!-- Live Dashboard (Sidebar) -->
             <div class="w-full lg:w-96 shrink-0 order-first lg:order-last">
                 <div class="sticky top-24 space-y-6">
                     <!-- Total Score Card -->
-                    <div class="bg-slate-900 text-white p-6 rounded-2xl shadow-xl border border-slate-800">
-                        <h3 class="text-lg font-bold text-slate-400 mb-2">Total Compliance</h3>
+                    <div class="bg-secondary text-white p-6 rounded-2xl shadow-xl border border-gray-800">
+                        <h3 class="text-lg font-bold text-gray-400 mb-2">Overall Compliance</h3>
                         <div class="flex items-end gap-2 mb-4">
-                            <span class="text-5xl font-black text-emerald-400" id="total-percent">0%</span>
-                            <span class="text-sm text-slate-500 mb-2">/ 100%</span>
+                            <span class="text-5xl font-black text-primary-400" id="total-percent">0%</span>
+                            <span class="text-sm text-gray-500 mb-2">/ 100%</span>
                         </div>
                         <!-- Progress Bar -->
-                        <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
-                            <div id="total-progress" class="h-full bg-emerald-500 transition-all duration-700 w-0">
+                        <div class="w-full h-3 bg-gray-700 rounded-full overflow-hidden">
+                            <div id="total-progress" class="h-full bg-primary-500 transition-all duration-700 w-0">
                             </div>
                         </div>
-                        <div class="mt-4 pt-4 border-t border-slate-800 flex justify-between items-center">
-                            <span class="text-sm text-slate-400">Status:</span>
+                        <div class="mt-4 pt-4 border-t border-gray-700 flex justify-between items-center">
+                            <span class="text-sm text-gray-400">Current Status:</span>
                             <span id="total-status"
-                                class="px-3 py-1 bg-slate-800 rounded-full text-xs font-bold text-slate-500">
-                                Pending
+                                class="px-3 py-1 bg-gray-800 rounded-full text-xs font-bold text-gray-500">
+                                Pending Input
                             </span>
                         </div>
                     </div>
 
                     <!-- Breakdown -->
-                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100">
-                        <h3 class="font-bold border-b border-slate-100 pb-4 mb-4">Section Summary</h3>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                        <h3 class="font-bold border-b border-gray-100 pb-4 mb-4">Domain Summary</h3>
                         <div class="space-y-4 text-sm">
                             <div class="flex justify-between items-center">
-                                <span class="text-slate-500">A. Governance</span>
+                                <span class="text-gray-500">A. Governance</span>
                                 <span class="font-bold" id="score-A">0%</span>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-slate-500">B. Teaching</span>
+                                <span class="text-gray-500">B. Teaching</span>
                                 <span class="font-bold" id="score-B">0%</span>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-slate-500">C. Outcomes</span>
+                                <span class="text-gray-500">C. Outcomes</span>
                                 <span class="font-bold" id="score-C">0%</span>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-slate-500">D. Environment</span>
+                                <span class="text-gray-500">D. Environment</span>
                                 <span class="font-bold" id="score-D">0%</span>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-slate-500">E. Community</span>
+                                <span class="text-gray-500">E. Engagement</span>
                                 <span class="font-bold" id="score-E">0%</span>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-slate-500">F. Improvement</span>
+                                <span class="text-gray-500">F. Improvement</span>
                                 <span class="font-bold" id="score-F">0%</span>
                             </div>
                         </div>
 
                         <button onclick="window.print()"
-                            class="w-full mt-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors">
+                            class="w-full mt-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-bold flex items-center justify-center gap-2 transition-colors">
                             <i data-lucide="printer" class="w-4 h-4"></i>
                             Print Report
                         </button>
@@ -457,68 +270,145 @@
         </div>
     </main>
 
+    <!-- Footer -->
+    <footer class="bg-secondary text-white py-12 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <!-- Logo -->
+                <div class="flex flex-col items-center md:items-start gap-4">
+                    <a href="https://calx.sa">
+                        <img src="images/calx-logo-black2.png" alt="CALX Logo" class="h-8 w-auto opacity-90 invert"
+                            loading="lazy">
+                    </a>
+                    <p class="text-gray-400 text-sm max-w-xs text-center md:text-left">
+                        Strategic Partner for School Accreditation & Institutional Readiness
+                    </p>
+                </div>
+
+                <!-- Contact Card -->
+                <div
+                    class="bg-secondary-light p-6 rounded-xl border border-gray-700 flex items-center gap-4 min-w-[300px]">
+                    <div
+                        class="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center text-white shrink-0">
+                        <span class="font-bold text-lg">DS</span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white">Dani Sinai</h4>
+                        <p class="text-xs text-primary-400 font-bold uppercase tracking-wider mb-1">Head of Education
+                            Consulting Sector</p>
+                        <div class="text-sm text-gray-300 flex flex-col gap-1">
+                            <a href="mailto:dsinai@calx.sa"
+                                class="hover:text-primary-400 transition-colors flex items-center gap-2">
+                                <i data-lucide="mail" class="w-3 h-3"></i> dsinai@calx.sa
+                            </a>
+                            <a href="tel:0599343529"
+                                class="hover:text-primary-400 transition-colors flex items-center gap-2" dir="ltr">
+                                <i data-lucide="phone" class="w-3 h-3"></i> 059 934 3529
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-500 text-xs">
+                &copy; 2026 CALX. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
     <!-- JS Logic -->
     <script>
         // Init Icons
         lucide.createIcons();
 
-        // Data for sections C, D, E, F
+        // Questions Data (Section key mapped to domain questions)
         const questionsData = {
+            A: [
+                "Does the school have a formally established self-evaluation team with trained and approved members?",
+                "Has the school principal and leadership team reviewed, understood, and applied the ETEC accreditation framework?",
+                "Are governance structures, roles, and responsibilities clearly defined and documented?",
+                "Are performance indicators established and used to monitor school effectiveness?",
+                "Is transparency and accountability evident in data collection, reporting, and decision-making processes?",
+                "Are school policies aligned with national values, professional ethics, and regulatory requirements?",
+                "Does the school demonstrate financial stability and operational sustainability (where applicable)?",
+                "Does the school use the official ETEC electronic platform accurately and consistently?",
+                "Is self-evaluation implemented as a formal, documented, and ongoing institutional process?"
+            ],
+            B: [
+                "Are teachers’ lesson plans aligned with ETEC standards and learning outcomes?",
+                "Are assessment practices aligned with accreditation requirements and learning objectives?",
+                "Is feedback provided to students regularly and used to improve learning?",
+                "Are diverse teaching strategies used to meet the needs of all learners, including gifted students and learners with disabilities?",
+                "Is active learning consistently implemented across classrooms?",
+                "Is digital learning and e-learning integration evident in teaching practices?",
+                "Are higher-order thinking skills, creativity, and problem-solving intentionally promoted?",
+                "Do teaching practices reinforce national identity, values, and positive student behavior?",
+                "Is classroom management effective and consistent across the school?"
+            ],
             C: [
-                { q: "1. Does the school use standardized tests provided by ETEC to measure learning outcomes?" },
-                { q: "2. Are student achievement data regularly analyzed to track progress?" },
-                { q: "3. Does the school have intervention programs for struggling learners?" },
-                { q: "4. Are student wellbeing, behavior, and social-emotional growth monitored?" }
+                "Does the school use ETEC national or approved standardized assessments to measure learning outcomes?",
+                "Are student achievement data analyzed regularly to monitor progress and trends?",
+                "Does the school demonstrate measurable improvement in learning outcomes over time?",
+                "Are targeted intervention programs in place for underperforming learners?",
+                "Are student wellbeing, behavior, health, and social-emotional development monitored?",
+                "Are attendance, behavior, and engagement data used to inform decision-making?"
             ],
             D: [
-                { q: "1. Are classrooms, labs, and facilities safe, accessible, and well-equipped?" },
-                { q: "2. Is student density per class within MoE standards?" },
-                { q: "3. Are facilities inclusive for learners with disabilities?" },
-                { q: "4. Are safety, hygiene, and emergency plans properly documented and updated?" }
+                "Are classrooms, laboratories, and facilities safe, accessible, and appropriately equipped?",
+                "Is student density per classroom compliant with Ministry of Education regulations?",
+                "Are facilities inclusive and accessible for learners with disabilities?",
+                "Are health, safety, hygiene, and emergency plans documented, implemented, and regularly updated?",
+                "Is preventive and corrective maintenance carried out and documented?",
+                "Does the school provide a clean, healthy, and supportive learning environment?"
             ],
             E: [
-                { q: "1. Are parents actively engaged in school evaluation (questionnaires, meetings)?" },
-                { q: "2. Do learners contribute feedback on their educational experience?" },
-                { q: "3. Does the school have mechanisms to address parent and student concerns?" },
-                { q: "4. Are community partnerships used to enhance student learning opportunities?" }
+                "Are parents actively engaged in school evaluation through surveys, meetings, and communication channels?",
+                "Do learners have structured opportunities to provide feedback on their learning experience?",
+                "Are formal mechanisms in place to address parent and student concerns?",
+                "Are community partnerships used to enhance learning opportunities and positive social impact?",
+                "Is feedback from parents, learners, and the community analyzed and used for improvement?"
             ],
             F: [
-                { q: "1. Has the school developed an improvement plan based on self-evaluation results?" },
-                { q: "2. Is the improvement plan integrated into the school’s operational plan?" },
-                { q: "3. Are progress and sustainability plans regularly reviewed and updated?" },
-                { q: "4. Are all staff members involved in continuous professional development?" }
+                "Has the school developed a documented improvement plan based on self-evaluation findings?",
+                "Is the improvement plan integrated into the school’s operational and strategic planning?",
+                "Are improvement actions implemented, monitored, and reviewed regularly?",
+                "Is evidence available to demonstrate the impact of improvement actions?",
+                "Are sustainability measures in place to ensure continuous improvement?",
+                "Are all staff members engaged in continuous professional development aligned with evaluation outcomes?"
             ]
         };
 
-        // Render function
-        function renderQuestions(sectionId, questions) {
+        // Render Function
+        function renderQuestions(sectionId) {
             const container = document.getElementById(`section-${sectionId.toLowerCase()}-questions`);
             let html = '';
-            questions.forEach((item, index) => {
+            const questions = questionsData[sectionId];
+
+            questions.forEach((qText, index) => {
                 const qNum = index + 1;
+                const absoluteIndex = index; // Used for scoring array
                 html += `
-                <div class="p-6 question-row" data-section="${sectionId}" data-index="${qNum}">
-                    <p class="font-semibold mb-4 text-lg">${item.q}</p>
+                <div class="p-6 question-row hover:bg-gray-50 transition" data-section="${sectionId}" data-index="${absoluteIndex}">
+                    <p class="font-semibold mb-4 text-lg text-secondary">${qNum}. ${qText}</p>
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                        <div class="flex gap-2 bg-slate-50 p-2 rounded-lg rating-group">
+                        <div class="flex gap-2 bg-gray-100 p-2 rounded-lg rating-group">
                             ${[1, 2, 3, 4, 5].map(val => `
-                                <button type="button" class="w-10 h-10 rounded-full border border-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all font-bold flex items-center justify-center" onclick="setScore(this, '${sectionId}', ${val})">${val}</button>
+                                <button type="button" 
+                                    class="w-10 h-10 rounded-full border border-gray-300 hover:border-primary-500 hover:text-primary-600 transition-all font-bold flex items-center justify-center text-gray-500" 
+                                    onclick="setScore(this, '${sectionId}', ${val})">${val}</button>
                             `).join('')}
                         </div>
-                        <input type="text" placeholder="Notes (Optional)" class="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:border-emerald-500 transition-colors text-sm">
+                        <input type="text" placeholder="Notes (Optional)" class="flex-1 bg-white border border-gray-200 rounded-lg px-4 py-2 focus:outline-none focus:border-primary-500 transition-colors text-sm">
                     </div>
                 </div>`;
             });
             container.innerHTML = html;
         }
 
-        // Render remaining sections
-        renderQuestions('C', questionsData.C);
-        renderQuestions('D', questionsData.D);
-        renderQuestions('E', questionsData.E);
-        renderQuestions('F', questionsData.F);
+        // Render All Sections
+        ['A', 'B', 'C', 'D', 'E', 'F'].forEach(sec => renderQuestions(sec));
 
-        // State
+        // State Management
         const scores = {
             A: [], B: [], C: [], D: [], E: [], F: []
         };
@@ -528,22 +418,15 @@
             // UI Update
             const parent = btn.parentElement;
             parent.querySelectorAll('button').forEach(b => {
-                b.classList.remove('bg-emerald-500', 'text-white', 'border-emerald-500');
-                b.classList.add('border-slate-300');
+                b.classList.remove('bg-primary-500', 'text-white', 'border-primary-500');
+                b.classList.add('border-gray-300', 'text-gray-500');
             });
-            btn.classList.remove('border-slate-300');
-            btn.classList.add('bg-emerald-500', 'text-white', 'border-emerald-500');
+            btn.classList.remove('border-gray-300', 'text-gray-500');
+            btn.classList.add('bg-primary-500', 'text-white', 'border-primary-500');
 
             // Logic Update
             const questionContainer = btn.closest('.question-row');
-            let qIndex = -1;
-            if (section === 'A' || section === 'B') {
-                // get index from parent children
-                const allRows = Array.from(questionContainer.parentElement.children);
-                qIndex = allRows.indexOf(questionContainer);
-            } else {
-                qIndex = parseInt(questionContainer.dataset.index) - 1;
-            }
+            const qIndex = parseInt(questionContainer.dataset.index);
 
             scores[section][qIndex] = value;
             calculateTotals();
@@ -556,41 +439,45 @@
 
             sections.forEach(sec => {
                 const secScores = scores[sec];
-                // Assume 4 questions per section always based on request
-                const maxSecScore = 4 * 5; // 20
-                let currentSecScore = 0;
+                const cleanScores = secScores.filter(n => n); // Count only answered
 
-                // Sum defined scores
-                for (let i = 0; i < 4; i++) {
+                // Max Score for this section based on number of questions in questionsData
+                const numQuestions = questionsData[sec].length;
+                const maxSecScore = numQuestions * 5;
+
+                let currentSecScore = 0;
+                for (let i = 0; i < numQuestions; i++) {
                     currentSecScore += (secScores[i] || 0);
                 }
 
                 // Update Section Badge
                 const sectionEl = document.querySelector(`[data-section="${sec}"]`);
                 if (sectionEl) {
-                    sectionEl.querySelector('.score-badge').innerText = `${currentSecScore}/20`;
+                    sectionEl.querySelector('.score-badge').innerText = `${currentSecScore}/${maxSecScore}`;
                 }
 
-                // Update Dashboard Breakdown
-                const percent = Math.round((currentSecScore / maxSecScore) * 100);
+                // Update Dashboard Breakdown %
+                // Avoid division by zero
+                const percent = maxSecScore > 0 ? Math.round((currentSecScore / maxSecScore) * 100) : 0;
+
                 const scoreEl = document.getElementById(`score-${sec}`);
                 scoreEl.innerText = `${percent}%`;
 
-                // Color coding
+                // Color coding (Live Section Status)
                 if (percent < 50) scoreEl.className = "font-bold text-red-500";
                 else if (percent < 80) scoreEl.className = "font-bold text-orange-500";
-                else scoreEl.className = "font-bold text-emerald-500";
+                else scoreEl.className = "font-bold text-primary-500";
 
                 totalScore += currentSecScore;
                 totalMax += maxSecScore;
             });
 
             // Grand Total
-            const totalPercent = Math.round((totalScore / totalMax) * 100);
+            const totalPercent = totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0;
             document.getElementById('total-percent').innerText = `${totalPercent}%`;
             document.getElementById('total-progress').style.width = `${totalPercent}%`;
 
-            // Total Status
+            // Total Status Logic (Reverted to 3 Levels)
             const statusEl = document.getElementById('total-status');
             if (totalPercent < 50) {
                 statusEl.innerText = "Critical - Immediate Intervention Needed";
@@ -600,41 +487,9 @@
                 statusEl.className = "px-3 py-1 bg-orange-100 rounded-full text-xs font-bold text-orange-600";
             } else {
                 statusEl.innerText = "Advanced - High Readiness";
-                statusEl.className = "px-3 py-1 bg-emerald-100 rounded-full text-xs font-bold text-emerald-600";
+                statusEl.className = "px-3 py-1 bg-primary-100 rounded-full text-xs font-bold text-primary-700";
             }
         }
-
-        // Helper style for buttons
-        const style = document.createElement('style');
-        style.innerHTML = `
-            .rounded-btn {
-                width: 2.5rem;
-                height: 2.5rem;
-                border-radius: 9999px; /* full */
-                border: 1px solid #cbd5e1;
-                font-weight: 700;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: all 0.2s;
-            }
-            .rounded-btn:hover {
-                border-color: #10b981;
-                color: #059669;
-            }
-            .input-field {
-                background-color: #f8fafc;
-                border: 1px solid #e2e8f0;
-                border-radius: 0.5rem;
-                padding: 0.5rem 1rem;
-                font-size: 0.875rem;
-            }
-            .input-field:focus {
-                outline: none;
-                border-color: #10b981;
-            }
-        `;
-        document.head.appendChild(style);
 
     </script>
 </body>
